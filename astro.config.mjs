@@ -1,7 +1,10 @@
 // @ts-check
 import {defineConfig} from 'astro/config'
 import svelte from '@astrojs/svelte'
+import mdx from '@astrojs/mdx'
+import sitemap from '@astrojs/sitemap'
 import tailwindcss from '@tailwindcss/vite'
+import siteInfo from './public/0user.json'
 import {unified} from '@astrojs/markdown-remark'
 import rehypeExpressiveCode from 'rehype-expressive-code'
 import remarkGfm from 'remark-gfm'
@@ -71,7 +74,12 @@ const processor = unified({
 })
 
 export default defineConfig({
-    integrations: [svelte()],
+    site: siteInfo.site.url || 'https://example.com',
+    integrations: [
+        svelte(),
+        mdx(),
+        sitemap(),
+    ],
     vite: {
         plugins: [tailwindcss()],
     },
