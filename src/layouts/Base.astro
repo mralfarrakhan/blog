@@ -4,6 +4,7 @@ import "katex/dist/katex.min.css";
 import Navigation from '../components/Navigation.astro';
 import Footer from '../components/Footer.astro';
 import { info } from '../lib/info.ts';
+import { ClientRouter, fade } from 'astro:transitions';
 
 interface BaseProps {
   title?: string;
@@ -66,12 +67,15 @@ const twitterHandle = twitterContact?.text?.startsWith('@')
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap"
           rel="stylesheet"/>
+    <ClientRouter />
     <script is:inline>
-      (() => {
+      function applyTheme() {
         const stored = localStorage.getItem('theme');
         const dark = stored ? stored === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
         document.documentElement.classList.toggle('dark', dark);
-      })();
+      }
+      applyTheme();
+      document.addEventListener('astro:after-swap', applyTheme);
     </script>
 
     <!-- Open Graph -->
@@ -108,7 +112,7 @@ const twitterHandle = twitterContact?.text?.startsWith('@')
 </head>
 <body class="font-sans antialiased bg-background text-foreground flex flex-col min-h-screen">
 <Navigation />
-<main class="flex-grow flex flex-col">
+<main class="flex-grow flex flex-col" transition:animate={fade({ duration: '0.2s' })}>
 <slot/>
 </main>
 <Footer />

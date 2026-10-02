@@ -145,8 +145,13 @@ const pageUrl = Astro.url?.href ?? undefined;
   })} />
 )}
 
-<script is:inline>
+<script is:inline data-astro-rerun>
   (() => {
+    if (window.__articleTocCleanup) {
+      window.__articleTocCleanup();
+      window.__articleTocCleanup = null;
+    }
+
     const HEADER_OFFSET = (() => {
       const nav = document.querySelector('nav');
       return nav ? (nav.getBoundingClientRect().height || 90) : 90;
@@ -316,17 +321,19 @@ const pageUrl = Astro.url?.href ?? undefined;
         updateDividerOffset();
         setActive(a || null);
       };
+      initFromHash();
       window.addEventListener('hashchange', initFromHash);
       window.addEventListener('load', initFromHash);
 
       let raf = 0;
-      window.addEventListener('resize', () => {
+      const onResize = () => {
         cancelAnimationFrame(raf);
         raf = requestAnimationFrame(() => {
           updateDividerOffset();
           updateActiveBar();
         });
-      });
+      };
+      window.addEventListener('resize', onResize);
 
       tocRoot.addEventListener('transitionstart', (e) => {
         const target = e.target;
@@ -344,8 +351,22 @@ const pageUrl = Astro.url?.href ?? undefined;
       const tocInner = tocRoot.querySelector('[data-astro-toc]');
       if (tocInner) ro.observe(tocInner);
 
-      window.addEventListener('pageshow', () => { updateDividerOffset(); updateActiveBar(); });
-      window.addEventListener('visibilitychange', () => { if (!document.hidden) { updateDividerOffset(); updateActiveBar(); } });
+      const onPageShow = () => { updateDividerOffset(); updateActiveBar(); };
+      const onVisChange = () => { if (!document.hidden) { updateDividerOffset(); updateActiveBar(); } };
+      window.addEventListener('pageshow', onPageShow);
+      window.addEventListener('visibilitychange', onVisChange);
+
+      const cleanup = () => {
+        window.removeEventListener('scroll', onScroll);
+        window.removeEventListener('hashchange', initFromHash);
+        window.removeEventListener('load', initFromHash);
+        window.removeEventListener('resize', onResize);
+        window.removeEventListener('pageshow', onPageShow);
+        window.removeEventListener('visibilitychange', onVisChange);
+        ro.disconnect();
+      };
+      window.__articleTocCleanup = cleanup;
+      document.addEventListener('astro:before-swap', cleanup, { once: true });
     }
 
     (() => {
