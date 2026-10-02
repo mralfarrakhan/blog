@@ -1,6 +1,6 @@
 // @ts-check
 import {defineConfig} from 'astro/config'
-import react from '@astrojs/react'
+import svelte from '@astrojs/svelte'
 import tailwindcss from '@tailwindcss/vite'
 import {unified} from '@astrojs/markdown-remark'
 import rehypeExpressiveCode from 'rehype-expressive-code'
@@ -71,7 +71,7 @@ const processor = unified({
 })
 
 export default defineConfig({
-    integrations: [react()],
+    integrations: [svelte()],
     vite: {
         plugins: [tailwindcss()],
     },
