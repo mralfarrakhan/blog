@@ -25,3 +25,6 @@ pnpm-debug.log*
 .junie/
 
 .agents/
+
+# cloudflare wrangler
+.wrangler/

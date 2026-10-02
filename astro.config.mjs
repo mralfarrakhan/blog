@@ -15,6 +15,8 @@ import {remarkCallouts} from './src/plugins/remark-callouts.ts'
 import {remarkCodeGroups, rehypeCodeTabs} from './src/plugins/code-tabs.ts'
 import {rehypeExternalLinks} from './src/plugins/rehype-external-links.ts'
 
+import cloudflare from '@astrojs/cloudflare';
+
 const expressiveConfig = {
     themes: ['github-dark'],
     useDarkModeMediaQuery: false,
@@ -74,17 +76,24 @@ const processor = unified({
 })
 
 export default defineConfig({
-    site: siteInfo.site.url || 'https://example.com',
-    integrations: [
-        svelte(),
-        mdx(),
-        sitemap(),
-    ],
-    vite: {
-        plugins: [tailwindcss()],
-    },
-    markdown: {
-        syntaxHighlight: false,
-        processor,
-    },
+  site: siteInfo.site.url || 'https://example.com',
+
+  integrations: [
+      svelte(),
+      mdx(),
+      sitemap(),
+  ],
+
+  vite: {
+      plugins: [tailwindcss()],
+  },
+
+  markdown: {
+      syntaxHighlight: false,
+      processor,
+  },
+
+  adapter: cloudflare({
+    imageService: 'compile',
+  }),
 })
