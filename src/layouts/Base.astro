@@ -5,13 +5,47 @@ import Navigation from '../components/Navigation.astro';
 import Footer from '../components/Footer.astro';
 import { info } from '../lib/info.ts';
 
-interface BaseProps { title?: string; description?: string; ogImage?: string }
-const { title = info.site.title, description = info.site.description, ogImage } = Astro.props as BaseProps;
-const siteName = info.site.name;
-const canonical = info.site.url;
-const siteUrl = info.site.url;
+interface BaseProps {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+  ogType?: 'website' | 'article';
+  robots?: string;
+}
+
+const {
+  title = info.site.title,
+  description = info.site.description,
+  ogImage,
+  ogType = 'website',
+  robots = 'index,follow',
+} = Astro.props as BaseProps;
+
+const siteName = info.name || info.site.name;
+const siteUrl = Astro.site?.href.replace(/\/$/, '') ?? info.site.url.replace(/\/$/, '');
 const siteLocale = info.site.locale ?? 'en_US';
-const resolvedOgImage = ogImage ?? (info.site.ogImage || undefined);
+
+// 1. Dynamic Canonical URL per page
+const canonicalURL = new URL(Astro.url.pathname, siteUrl);
+const canonical = canonicalURL.href;
+
+// 2. Absolute OG Image resolution with fallback
+const rawOgImage = ogImage || info.site.ogImage || '/og-default.svg';
+const resolvedOgImage = rawOgImage ? new URL(rawOgImage, canonicalURL).href : undefined;
+
+// 3. Page Title with pipe separator on inner pages
+const isHomePage = Astro.url.pathname === '/' || Astro.url.pathname === '';
+const displayTitle = isHomePage || title.includes('|')
+  ? title
+  : `${title} | ${siteName}`;
+
+// 4. Twitter / X attribution from contacts
+const twitterContact = info.contacts?.find(
+  (c) => c.label.toLowerCase() === 'twitter' || c.label.toLowerCase() === 'x' || c.href.includes('x.com') || c.href.includes('twitter.com')
+);
+const twitterHandle = twitterContact?.text?.startsWith('@')
+  ? twitterContact.text
+  : (twitterContact?.href ? `@${twitterContact.href.split('/').pop()}` : undefined);
 ---
 <html lang="en">
 <head>
@@ -21,10 +55,13 @@ const resolvedOgImage = ogImage ?? (info.site.ogImage || undefined);
     <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
     <link rel="mask-icon" href="/favicon.svg" color="#222222"/>
     <link rel="sitemap" href="/sitemap-index.xml"/>
+    <link rel="alternate" type="application/rss+xml" title={siteName} href="/rss.xml"/>
+    <link rel="canonical" href={canonical}/>
+
     <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#131316"/>
     <meta name="theme-color" media="(prefers-color-scheme: light)" content="#fcfcfd"/>
     <meta name="msapplication-TileColor" content="#131316"/>
-    <meta name="robots" content="index,follow"/>
+    <meta name="robots" content={robots}/>
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap"
@@ -37,27 +74,25 @@ const resolvedOgImage = ogImage ?? (info.site.ogImage || undefined);
       })();
     </script>
 
-    <meta property="og:type" content="website"/>
+    <!-- Open Graph -->
+    <meta property="og:type" content={ogType}/>
     <meta property="og:site_name" content={siteName}/>
-    <meta property="og:title" content={title}/>
+    <meta property="og:title" content={displayTitle}/>
     <meta property="og:description" content={description}/>
+    <meta property="og:url" content={canonical}/>
     <meta property="og:locale" content={siteLocale}/>
-    {canonical &&
-            <meta property="og:url" content={canonical}/>}
-    {resolvedOgImage &&
-            <meta property="og:image" content={resolvedOgImage}/>}
+    {resolvedOgImage && <meta property="og:image" content={resolvedOgImage}/>}
 
+    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image"/>
-    <meta name="twitter:title" content={title}/>
+    <meta name="twitter:title" content={displayTitle}/>
     <meta name="twitter:description" content={description}/>
-    {resolvedOgImage &&
-            <meta name="twitter:image" content={resolvedOgImage}/>}
+    {twitterHandle && <meta name="twitter:site" content={twitterHandle}/>}
+    {twitterHandle && <meta name="twitter:creator" content={twitterHandle}/>}
+    {resolvedOgImage && <meta name="twitter:image" content={resolvedOgImage}/>}
 
-    {canonical &&
-            <link rel="canonical" href={canonical}/>}
-
-    <title>{title}</title>
-    {siteUrl && (
+    <title>{displayTitle}</title>
+    {isHomePage && siteUrl && (
       <script is:inline type="application/ld+json" set:html={JSON.stringify({
         "@context": "https://schema.org",
         "@type": "WebSite",

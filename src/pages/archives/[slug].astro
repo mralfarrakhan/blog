@@ -59,7 +59,7 @@ const newer = idx > 0 ? posts[idx - 1] : null;
 const pageUrl = Astro.url?.href ?? undefined;
 ---
 
-<Base title={title} description={description} ogImage={ogImage}>
+<Base title={title} description={description} ogImage={ogImage} ogType="article">
   <div id="main-content" class="flex-1">
     <div class="w-full px-6 py-10 sm:py-14 xl:grid xl:grid-cols-[1fr_minmax(0,48rem)_1fr]">
       <div class="hidden xl:block"></div>
