@@ -1,12 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Blog social preview">
   <defs>
     <radialGradient id="bgGlow" cx="20%" cy="20%" r="80%">
-      <stop offset="0%" stop-color="#241b35" stop-opacity="0.8"/>
+      <stop offset="0%" stop-color="#1a2718" stop-opacity="0.8"/>
       <stop offset="100%" stop-color="#131316" stop-opacity="1"/>
     </radialGradient>
     <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#b854d4"/>
-      <stop offset="100%" stop-color="#8038d1"/>
+      <stop offset="0%" stop-color="#bef264"/>
+      <stop offset="100%" stop-color="#65a30d"/>
     </linearGradient>
   </defs>
 
@@ -33,7 +33,7 @@
   <text x="100" y="505" font-family="'JetBrains Mono', monospace" font-size="22" font-weight="600" fill="#fcfcfd">
     Muhammad Rafky
   </text>
-  <text x="1100" y="505" text-anchor="end" font-family="'JetBrains Mono', monospace" font-size="20" font-weight="500" fill="#b854d4">
+  <text x="1100" y="505" text-anchor="end" font-family="'JetBrains Mono', monospace" font-size="20" font-weight="500" fill="#a3e635">
     #blog
   </text>
 </svg>

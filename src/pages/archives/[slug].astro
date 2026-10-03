@@ -8,6 +8,7 @@ import { slugifyTag } from '$lib/tags';
 import { getArchivePosts } from '$lib/archive_data';
 import '../../styles/archives.css';
 import 'katex/dist/katex.min.css';
+import Quote from '../../components/Quote.svelte';
 
 export const getStaticPaths = (async () => {
   const archive = await getCollection('archives', (p) => !p.data.draft);
@@ -113,6 +114,8 @@ const pageUrl = Astro.url?.href ?? undefined;
         <article id="article-content" class="prose mt-8 max-w-none">
           <Content />
         </article>
+
+        <Quote client:visible />
       </div>
 
       {tocItems.length > 0 ? (
