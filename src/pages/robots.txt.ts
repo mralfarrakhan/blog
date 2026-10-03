@@ -1,5 +1,5 @@
 import type { APIRoute } from 'astro';
-import { info } from '../lib/info';
+import { info } from '$lib/info';
 
 export const GET: APIRoute = ({ site }) => {
   const siteUrl = site ? site.href : info.site.url;

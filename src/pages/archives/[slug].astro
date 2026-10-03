@@ -4,8 +4,8 @@ import { getCollection, render } from 'astro:content';
 import type { GetStaticPaths } from 'astro';
 import { TOC } from 'astro-toc';
 import { ChevronRight, ArrowLeft, ArrowRight, Calendar, Clock } from '@lucide/astro';
-import { slugifyTag } from '../../lib/tags';
-import { getArchivePosts } from '../../lib/archive_data';
+import { slugifyTag } from '$lib/tags';
+import { getArchivePosts } from '$lib/archive_data';
 import '../../styles/archives.css';
 import 'katex/dist/katex.min.css';
 

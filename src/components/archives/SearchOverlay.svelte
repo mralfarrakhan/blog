@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { searchPosts, type Post } from '../../lib/search';
+  import { searchPosts, type Post } from '$lib/search';
 
   interface Props {
     open: boolean;

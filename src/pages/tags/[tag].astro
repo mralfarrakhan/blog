@@ -1,9 +1,9 @@
 ---
 import Base from "../../layouts/Base.astro";
-import { getArchivePosts } from "../../lib/archive_data";
-import { getAllTags, slugifyTag } from "../../lib/tags";
+import { getArchivePosts } from "$lib/archive_data";
+import { getAllTags, slugifyTag } from "$lib/tags";
 import { ChevronRight } from "@lucide/astro";
-import type { Post } from "../../lib/search";
+import type { Post } from "$lib/search";
 
 export async function getStaticPaths() {
   const posts = await getArchivePosts();

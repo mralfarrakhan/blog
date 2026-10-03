@@ -1,8 +1,8 @@
 ---
 import Base from "../../layouts/Base.astro";
-import { getArchivePosts } from "../../lib/archive_data";
-import { getAllTags } from "../../lib/tags";
-import { info } from "../../lib/info";
+import { getArchivePosts } from "$lib/archive_data";
+import { getAllTags } from "$lib/tags";
+import { info } from "$lib/info";
 
 const posts = await getArchivePosts();
 const tags = getAllTags(posts);

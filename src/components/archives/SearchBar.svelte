@@ -1,6 +1,6 @@
 <script lang="ts">
   import SearchOverlay from './SearchOverlay.svelte';
-  import type { Post } from '../../lib/search';
+  import type { Post } from '$lib/search';
 
   interface Props {
     value?: string;

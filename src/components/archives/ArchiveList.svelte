@@ -1,6 +1,6 @@
 <script module lang="ts">
-  import type { Post } from '../../lib/search';
-  import type { TagInfo } from '../../lib/tags';
+  import type { Post } from '$lib/search';
+  import type { TagInfo } from '$lib/tags';
 
   export type { Post, TagInfo };
 
@@ -13,8 +13,8 @@
 
 <script lang="ts">
   import SearchBar from './SearchBar.svelte';
-  import { getAllTags, slugifyTag } from '../../lib/tags';
-  import { searchPosts } from '../../lib/search';
+  import { getAllTags, slugifyTag } from '$lib/tags';
+  import { searchPosts } from '$lib/search';
 
   interface Props {
     posts?: Post[];

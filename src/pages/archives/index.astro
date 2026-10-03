@@ -1,7 +1,7 @@
 ---
 import Base from "../../layouts/Base.astro";
 import ArchiveList from "../../components/archives/ArchiveList.svelte";
-import { getArchivePosts } from "../../lib/archive_data";
+import { getArchivePosts } from "$lib/archive_data";
 
 const clientPosts = await getArchivePosts();
 ---
