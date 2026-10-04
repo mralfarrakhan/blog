@@ -83,7 +83,9 @@
     if (!open) return;
     // Track activeIndex for scroll into view
     void activeIndex;
-    listEl?.querySelector('[data-active="true"]')?.scrollIntoView({ block: 'nearest' });
+    listEl
+      ?.querySelector('[data-active="true"]')
+      ?.scrollIntoView({ block: 'nearest' });
   });
 
   $effect(() => {
@@ -118,19 +120,21 @@
     role="dialog"
     aria-modal="true"
     aria-label="Search articles"
-    class="fixed inset-0 z-[60] flex items-start justify-center overflow-y-auto bg-black/40 px-4 pb-10 pt-[14vh] backdrop-blur-sm dark:bg-black/60"
+    class="fixed inset-0 z-[60] flex items-start justify-center overflow-y-auto bg-black/40 px-4 pt-[14vh] pb-10 backdrop-blur-sm dark:bg-black/60"
     onclick={(e) => {
       if (e.target === e.currentTarget) onClose();
     }}
   >
-    <div class="w-full max-w-xl overflow-hidden rounded-xl border border-border bg-popover text-popover-foreground shadow-2xl">
-      <div class="flex items-center gap-3 border-b border-border px-4">
+    <div
+      class="border-border bg-popover text-popover-foreground w-full max-w-xl overflow-hidden rounded-xl border shadow-2xl"
+    >
+      <div class="border-border flex items-center gap-3 border-b px-4">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
           width="16"
           height="16"
-          class="shrink-0 text-muted-foreground"
+          class="text-muted-foreground shrink-0"
           fill="none"
           stroke="currentColor"
           strokeWidth="2"
@@ -147,17 +151,24 @@
           bind:value={query}
           placeholder="Search articles..."
           aria-label="Search articles"
-          class="w-full bg-transparent py-3.5 text-sm text-foreground outline-none placeholder:text-muted-foreground/70"
+          class="text-foreground placeholder:text-muted-foreground/70 w-full bg-transparent py-3.5 text-sm outline-none"
         />
-        <kbd class="inline-flex items-center rounded border border-border/80 bg-card/60 px-1.5 py-0.5 font-mono text-[10px] leading-none text-muted-foreground">
+        <kbd
+          class="border-border/80 bg-card/60 text-muted-foreground inline-flex items-center rounded border px-1.5 py-0.5 font-mono text-[10px] leading-none"
+        >
           esc
         </kbd>
       </div>
 
       <div bind:this={listEl} class="max-h-[46vh] overflow-y-auto py-1.5">
         {#if results.length === 0}
-          <div class="px-4 py-12 text-center text-sm text-muted-foreground" aria-live="polite">
-            No matching articles found{query.trim() ? ` for "${query.trim()}"` : ''}.
+          <div
+            class="text-muted-foreground px-4 py-12 text-center text-sm"
+            aria-live="polite"
+          >
+            No matching articles found{query.trim()
+              ? ` for "${query.trim()}"`
+              : ''}.
           </div>
         {:else}
           {#each results as post, idx (post.slug)}
@@ -167,16 +178,26 @@
               data-active={active ? 'true' : undefined}
               onmouseenter={() => (activeIndex = idx)}
               onclick={() => onSelect(post)}
-              class="mx-1.5 block rounded-lg px-3 py-2.5 transition-colors {active ? 'bg-muted' : 'hover:bg-muted/60'}"
+              class="mx-1.5 block rounded-lg px-3 py-2.5 transition-colors {active
+                ? 'bg-muted'
+                : 'hover:bg-muted/60'}"
             >
               <div class="flex items-start justify-between gap-4">
                 <div class="min-w-0">
-                  <h4 class="truncate text-sm font-semibold transition-colors {active ? 'text-accent' : 'text-foreground'}">
+                  <h4
+                    class="truncate text-sm font-semibold transition-colors {active
+                      ? 'text-accent'
+                      : 'text-foreground'}"
+                  >
                     {post.title}
                   </h4>
-                  <p class="mt-0.5 line-clamp-1 text-xs text-muted-foreground">{post.excerpt}</p>
+                  <p class="text-muted-foreground mt-0.5 line-clamp-1 text-xs">
+                    {post.excerpt}
+                  </p>
                 </div>
-                <time class="shrink-0 whitespace-nowrap pt-0.5 text-xs text-muted-foreground/70">
+                <time
+                  class="text-muted-foreground/70 shrink-0 pt-0.5 text-xs whitespace-nowrap"
+                >
                   {formatDisplayDate(post.date)}
                 </time>
               </div>
@@ -184,14 +205,18 @@
                 <div class="mt-1.5 flex flex-wrap items-center gap-1.5">
                   {#if post.tags}
                     {#each post.tags.slice(0, 3) as tag (tag)}
-                      <span class="inline-flex items-center gap-1 rounded-md border border-border/60 bg-card/60 px-1.5 py-0.5 font-mono text-[10px] text-muted-foreground">
+                      <span
+                        class="border-border/60 bg-card/60 text-muted-foreground inline-flex items-center gap-1 rounded-md border px-1.5 py-0.5 font-mono text-[10px]"
+                      >
                         <span class="text-accent/70">#</span>
                         {tag}
                       </span>
                     {/each}
                   {/if}
                   {#if typeof post.readMinutes === 'number'}
-                    <span class="text-[11px] text-muted-foreground/60">{post.readMinutes} min read</span>
+                    <span class="text-muted-foreground/60 text-[11px]"
+                      >{post.readMinutes} min read</span
+                    >
                   {/if}
                 </div>
               {/if}
@@ -200,18 +225,32 @@
         {/if}
       </div>
 
-      <footer class="flex flex-wrap items-center gap-x-5 gap-y-1 border-t border-border bg-muted/30 px-4 py-2 text-[11px] text-muted-foreground">
+      <footer
+        class="border-border bg-muted/30 text-muted-foreground flex flex-wrap items-center gap-x-5 gap-y-1 border-t px-4 py-2 text-[11px]"
+      >
         <span class="inline-flex items-center gap-1.5">
-          <kbd class="inline-flex items-center rounded border border-border/80 bg-card/60 px-1.5 py-0.5 font-mono text-[10px] leading-none text-muted-foreground">↑</kbd>
-          <kbd class="inline-flex items-center rounded border border-border/80 bg-card/60 px-1.5 py-0.5 font-mono text-[10px] leading-none text-muted-foreground">↓</kbd>
+          <kbd
+            class="border-border/80 bg-card/60 text-muted-foreground inline-flex items-center rounded border px-1.5 py-0.5 font-mono text-[10px] leading-none"
+            >↑</kbd
+          >
+          <kbd
+            class="border-border/80 bg-card/60 text-muted-foreground inline-flex items-center rounded border px-1.5 py-0.5 font-mono text-[10px] leading-none"
+            >↓</kbd
+          >
           Navigate
         </span>
         <span class="inline-flex items-center gap-1.5">
-          <kbd class="inline-flex items-center rounded border border-border/80 bg-card/60 px-1.5 py-0.5 font-mono text-[10px] leading-none text-muted-foreground">↵</kbd>
+          <kbd
+            class="border-border/80 bg-card/60 text-muted-foreground inline-flex items-center rounded border px-1.5 py-0.5 font-mono text-[10px] leading-none"
+            >↵</kbd
+          >
           Open
         </span>
         <span class="ml-auto inline-flex items-center gap-1.5">
-          <kbd class="inline-flex items-center rounded border border-border/80 bg-card/60 px-1.5 py-0.5 font-mono text-[10px] leading-none text-muted-foreground">esc</kbd>
+          <kbd
+            class="border-border/80 bg-card/60 text-muted-foreground inline-flex items-center rounded border px-1.5 py-0.5 font-mono text-[10px] leading-none"
+            >esc</kbd
+          >
           Close
         </span>
       </footer>

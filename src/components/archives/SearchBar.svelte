@@ -24,7 +24,10 @@
   let open = $state(false);
 
   $effect(() => {
-    if (typeof window !== 'undefined' && /Mac|iPod|iPhone|iPad/.test(navigator.userAgent)) {
+    if (
+      typeof window !== 'undefined' &&
+      /Mac|iPod|iPhone|iPad/.test(navigator.userAgent)
+    ) {
       shortcutLabel = '⌘ K';
     }
 
@@ -61,7 +64,7 @@
     viewBox="0 0 24 24"
     width="16"
     height="16"
-    class="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none"
+    class="text-muted-foreground pointer-events-none absolute top-1/2 left-3.5 -translate-y-1/2"
     fill="none"
     stroke="currentColor"
     strokeWidth="2"
@@ -77,11 +80,13 @@
     {value}
     oninput={handleInput}
     {placeholder}
-    class="w-full rounded-xl border border-border/60 bg-muted/30 pl-10 pr-16 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary/80 transition-all"
+    class="border-border/60 bg-muted/30 text-foreground placeholder:text-muted-foreground/70 focus:ring-primary focus:border-primary/80 w-full rounded-xl border py-2.5 pr-16 pl-10 text-sm transition-all focus:ring-1 focus:outline-none"
     aria-label={placeholder}
   />
-  <div class="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
-    <kbd class="inline-flex items-center rounded border border-border/80 bg-muted/60 px-1.5 py-0.5 font-mono text-[11px] text-muted-foreground">
+  <div class="pointer-events-none absolute top-1/2 right-3 -translate-y-1/2">
+    <kbd
+      class="border-border/80 bg-muted/60 text-muted-foreground inline-flex items-center rounded border px-1.5 py-0.5 font-mono text-[11px]"
+    >
       {shortcutLabel}
     </kbd>
   </div>

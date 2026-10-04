@@ -1,9 +1,9 @@
 ---
-import Base from "../../layouts/Base.astro";
-import { getArchivePosts } from "$lib/archive_data";
-import { getAllTags, slugifyTag } from "$lib/tags";
-import { ChevronRight } from "@lucide/astro";
-import type { Post } from "$lib/search";
+import Base from '../../layouts/Base.astro';
+import { getArchivePosts } from '$lib/archive_data';
+import { getAllTags, slugifyTag } from '$lib/tags';
+import { ChevronRight } from '@lucide/astro';
+import type { Post } from '$lib/search';
 
 export async function getStaticPaths() {
   const posts = await getArchivePosts();
@@ -46,8 +46,7 @@ function formatDisplayDate(dateStr?: string): string {
         timeZone: 'UTC',
       });
     }
-  } catch {
-  }
+  } catch {}
   return dateStr;
 }
 ---
@@ -58,25 +57,33 @@ function formatDisplayDate(dateStr?: string): string {
       <nav aria-label="Breadcrumb" class="mb-6">
         <ol class="flex flex-wrap items-center gap-1.5 text-xs text-muted-foreground">
           <li class="flex items-center gap-1.5">
-            <a href="/" class="transition-colors hover:text-foreground">Home</a>
+            <a href="/" class="transition-colors hover:text-foreground">
+              Home
+            </a>
           </li>
           <li class="flex items-center gap-1.5">
             <ChevronRight size={12} class="opacity-60" />
-            <a href="/tags" class="transition-colors hover:text-foreground">Tags</a>
+            <a href="/tags" class="transition-colors hover:text-foreground">
+              Tags
+            </a>
           </li>
           <li class="flex items-center gap-1.5">
             <ChevronRight size={12} class="opacity-60" />
-            <span aria-current="page" class="font-medium text-foreground">{tag}</span>
+            <span aria-current="page" class="font-medium text-foreground">
+              {tag}
+            </span>
           </li>
         </ol>
       </nav>
 
       <header class="mb-10">
         <h1 class="text-3xl font-bold tracking-tight sm:text-4xl">
-          <span class="text-accent">#</span>{tag}
+          <span class="text-accent">#</span>
+          {tag}
         </h1>
         <p class="mt-3 text-base text-muted-foreground">
-          {posts.length} {posts.length === 1 ? 'article' : 'articles'} tagged with “{tag}”.
+          {posts.length} {posts.length === 1 ? 'article' : 'articles'} tagged
+          with “{tag}”.
         </p>
       </header>
 

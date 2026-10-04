@@ -1,0 +1,52 @@
+---
+export interface CardItem {
+  index?: string | number;
+  title: string;
+  description: string;
+}
+
+interface Props {
+  items: CardItem[];
+  columns?: 2 | 3 | 4;
+  class?: string;
+}
+
+const { items = [], columns = 3, class: className = '' } = Astro.props;
+
+const colClass =
+  {
+    2: 'sm:grid-cols-2',
+    3: 'sm:grid-cols-3',
+    4: 'sm:grid-cols-2 lg:grid-cols-4',
+  }[columns] ?? 'sm:grid-cols-3';
+
+function formatIndex(index?: string | number) {
+  if (index === undefined || index === null) return undefined;
+  const str = String(index).trim();
+  if (str.startsWith('//')) return str;
+  return `// ${str.padStart(2, '0')}`;
+}
+---
+
+<div class={`grid grid-cols-1 ${colClass} gap-3.5 my-6 ${className}`}>
+  {items.map((item, idx) => {
+    const formattedIndex = formatIndex(item.index ?? idx + 1);
+    return (
+      <div class="p-4 rounded-lg border border-border/60 bg-card/40 flex flex-col justify-between hover:border-border transition-colors">
+        <div>
+          {formattedIndex && (
+            <div class="text-xs font-mono text-accent font-semibold mb-1.5">
+              {formattedIndex}
+            </div>
+          )}
+          <div class="text-sm font-semibold text-foreground mb-1.5">
+            {item.title}
+          </div>
+          <div class="text-xs text-muted-foreground leading-relaxed">
+            {item.description}
+          </div>
+        </div>
+      </div>
+    );
+  })}
+</div>

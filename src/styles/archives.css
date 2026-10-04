@@ -75,7 +75,9 @@
     text-decoration: underline;
     text-decoration-color: var(--color-muted-foreground);
     text-underline-offset: 2px;
-    transition: color 150ms ease, text-decoration-color 150ms ease;
+    transition:
+      color 150ms ease,
+      text-decoration-color 150ms ease;
   }
 
   .prose a:hover {
@@ -191,7 +193,7 @@
   }
 
   .prose .footnotes {
-    @apply mt-10 pt-6 border-t border-border/40 text-sm text-muted-foreground;
+    @apply border-border/40 text-muted-foreground mt-10 border-t pt-6 text-sm;
   }
 
   .prose .footnotes ol {
@@ -206,7 +208,7 @@
     text-decoration: none;
   }
 
-.prose-callout {
+  .prose-callout {
     --callout: var(--accent);
     margin: 1.5rem 0;
     padding: 0.75rem 1rem;
@@ -236,13 +238,21 @@
     margin: 0.5em 0;
   }
 
-.prose-callout-note,
+  .prose-callout-note,
   .prose-callout-info,
-  .prose-callout-important { --callout: var(--accent); }
+  .prose-callout-important {
+    --callout: var(--accent);
+  }
   .prose-callout-tip,
-  .prose-callout-success { --callout: var(--success); }
-  .prose-callout-warning { --callout: var(--warning); }
-  .prose-callout-caution { --callout: var(--caution); }
+  .prose-callout-success {
+    --callout: var(--success);
+  }
+  .prose-callout-warning {
+    --callout: var(--warning);
+  }
+  .prose-callout-caution {
+    --callout: var(--caution);
+  }
 
   /* tag colour cycle — edit in global.css tokens if you want to theme them */
   .tag-h-0 {
@@ -312,7 +322,7 @@
     background: transparent !important;
   }
 
-.toc {
+  .toc {
     @apply p-0 pl-3;
     position: relative;
     border: none;
@@ -324,7 +334,7 @@
   }
 
   .toc::before {
-    content: "";
+    content: '';
     position: absolute;
     left: 0;
     top: var(--toc-divider-offset, 0px);
@@ -335,7 +345,7 @@
   }
 
   .toc::after {
-    content: "";
+    content: '';
     position: absolute;
     left: 0;
     width: 1px;
@@ -345,20 +355,22 @@
     border-radius: 0;
     pointer-events: none;
     opacity: 0;
-    transition: top 200ms ease-in-out, height 200ms ease-in-out,
+    transition:
+      top 200ms ease-in-out,
+      height 200ms ease-in-out,
       opacity 150ms ease-in-out;
   }
 
-  .toc[data-active="1"]::after {
+  .toc[data-active='1']::after {
     opacity: 1;
   }
 
   .toc-title {
-    @apply text-[0.7rem] tracking-wide uppercase font-semibold text-muted-foreground mb-1;
+    @apply text-muted-foreground mb-1 text-[0.7rem] font-semibold tracking-wide uppercase;
   }
 
   .toc-list {
-    @apply m-0 p-0 list-none;
+    @apply m-0 list-none p-0;
   }
 
   .toc ul {
@@ -377,13 +389,16 @@
   }
 
   .toc-sublist {
-    @apply m-0.5 ml-3 pl-2 list-none;
+    @apply m-0.5 ml-3 list-none pl-2;
     border-left: none;
     overflow: hidden;
     max-height: 0;
     opacity: 0;
     transform: translateY(-2px);
-    transition: max-height 220ms ease, opacity 180ms ease, transform 220ms ease;
+    transition:
+      max-height 220ms ease,
+      opacity 180ms ease,
+      transform 220ms ease;
   }
 
   .toc a,
@@ -404,13 +419,13 @@
     color: var(--color-foreground);
   }
 
-  .toc a[aria-current="true"],
-  .toc a.toc-link[aria-current="true"] {
+  .toc a[aria-current='true'],
+  .toc a.toc-link[aria-current='true'] {
     color: var(--color-accent);
     font-weight: 500;
   }
 
-  .toc-sublist[aria-expanded="true"] {
+  .toc-sublist[aria-expanded='true'] {
     max-height: 1000px;
     opacity: 1;
     transform: translateY(0);
@@ -423,11 +438,14 @@
     max-height: 0;
     opacity: 0;
     transform: translateY(-2px);
-    transition: max-height 220ms ease, opacity 180ms ease, transform 220ms ease;
+    transition:
+      max-height 220ms ease,
+      opacity 180ms ease,
+      transform 220ms ease;
   }
 
   .toc li.expanded > ul,
-  .toc li[aria-expanded="true"] > ul {
+  .toc li[aria-expanded='true'] > ul {
     max-height: 1000px;
     opacity: 1;
     transform: translateY(0);
@@ -443,7 +461,6 @@
   .toc-item.toc-hidden {
     display: none;
   }
-
 }
 
 @layer utilities {

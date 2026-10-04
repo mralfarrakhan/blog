@@ -29,7 +29,10 @@ export function countWords(text?: string): number {
   return count;
 }
 
-export function calculateReadMinutes(words: number, wordsPerMinute: number = WORDS_PER_MINUTE): number {
+export function calculateReadMinutes(
+  words: number,
+  wordsPerMinute: number = WORDS_PER_MINUTE
+): number {
   return Math.max(1, Math.round(words / wordsPerMinute));
 }
 
@@ -38,7 +41,10 @@ export function formatArchivePost(entry: ArchiveEntry): Post {
   const wordCount = countWords(body);
   const readMinutes = calculateReadMinutes(wordCount);
 
-  const dateObj = entry.data.date instanceof Date ? entry.data.date : new Date(entry.data.date);
+  const dateObj =
+    entry.data.date instanceof Date
+      ? entry.data.date
+      : new Date(entry.data.date);
   const dateStr = !isNaN(dateObj.getTime())
     ? dateObj.toISOString().slice(0, 10)
     : String(entry.data.date ?? '');
@@ -54,7 +60,9 @@ export function formatArchivePost(entry: ArchiveEntry): Post {
   };
 }
 
-export async function getArchivePosts(options: ArchiveDataOptions = {}): Promise<Post[]> {
+export async function getArchivePosts(
+  options: ArchiveDataOptions = {}
+): Promise<Post[]> {
   const { includeDrafts = false } = options;
 
   const entries = await getCollection('archives', (entry) => {
@@ -62,8 +70,14 @@ export async function getArchivePosts(options: ArchiveDataOptions = {}): Promise
   });
 
   entries.sort((a, b) => {
-    const timeA = a.data.date instanceof Date ? a.data.date.getTime() : new Date(a.data.date).getTime();
-    const timeB = b.data.date instanceof Date ? b.data.date.getTime() : new Date(b.data.date).getTime();
+    const timeA =
+      a.data.date instanceof Date
+        ? a.data.date.getTime()
+        : new Date(a.data.date).getTime();
+    const timeB =
+      b.data.date instanceof Date
+        ? b.data.date.getTime()
+        : new Date(b.data.date).getTime();
     return timeB - timeA;
   });
 

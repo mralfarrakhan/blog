@@ -5,7 +5,7 @@ import { glob } from 'astro/loaders';
 const archives = defineCollection({
   loader: glob({
     pattern: '**/*.{md,mdx}',
-    base: './src/content/archives'
+    base: './src/content/archives',
   }),
   schema: z.object({
     title: z.string(),
@@ -13,8 +13,8 @@ const archives = defineCollection({
     date: z.coerce.date(),
     tags: z.array(z.string()).default([]),
     draft: z.boolean().optional().default(false),
-    ogImage: z.string().optional()
-  })
+    ogImage: z.string().optional(),
+  }),
 });
 
 export const collections = { archives };

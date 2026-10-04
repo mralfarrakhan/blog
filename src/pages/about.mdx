@@ -1,0 +1,89 @@
+---
+layout: ../layouts/Page.astro
+title: About
+description: A personal corner for software notes, architecture, and craft.
+---
+
+import { CardGrid, SpecGrid, BadgeGroup } from '../components/ui';
+import { info } from '../lib/info';
+
+Hey, welcome.
+
+I'm a software engineer focused on building reliable, maintainable systems across the stack — from user interfaces and developer tooling to distributed backends and cloud infrastructure.
+
+## About This Blog
+
+This site is my personal digital garden and notebook. It serves as an archive for thoughts, experiments, and practical observations on:
+
+<CardGrid
+  items={[
+    {
+      title: 'Systems & Architecture',
+      description:
+        'Designing maintainable, resilient software without unnecessary complexity.',
+    },
+    {
+      title: 'Performance & Tooling',
+      description:
+        'Compilers, edge runtimes, modern web performance, and developer ergonomics.',
+    },
+    {
+      title: 'Software Craft',
+      description:
+        'Writing clear code, debugging tricky problems, and lessons learned shipping production systems.',
+    },
+  ]}
+/>
+
+Writing helps clarify thinking. Some posts are comprehensive deep-dives, while others are concise working notes captured while building things.
+
+> [!NOTE] Digital Garden
+> This space is a living notebook rather than a static publication. Notes and articles evolve over time as new patterns and insights emerge.
+
+## Colophon
+
+This website is designed to be lightweight, privacy-respecting, and fast:
+
+<SpecGrid
+  items={[
+    {
+      label: 'Framework',
+      links: [
+        { text: 'Astro', href: 'https://astro.build' },
+        { text: 'Svelte 5', href: 'https://svelte.dev' },
+      ],
+    },
+    {
+      label: 'Styling',
+      links: [{ text: 'Tailwind CSS v4', href: 'https://tailwindcss.com' }],
+    },
+    {
+      label: 'Hosting',
+      links: [
+        { text: 'Cloudflare Workers', href: 'https://workers.cloudflare.com' },
+      ],
+    },
+    {
+      label: 'Typography',
+      links: [
+        { text: 'JetBrains Mono', href: 'https://www.jetbrains.com/lp/mono/' },
+      ],
+    },
+    {
+      label: 'Privacy',
+      value: 'Zero tracking · No cookies · Zero telemetry',
+      fullWidth: true,
+    },
+  ]}
+/>
+
+## Connect
+
+Feel free to reach out if you want to discuss an article, talk about systems and tooling, or simply say hello:
+
+<BadgeGroup
+  items={[
+    ...info.contacts,
+    { label: 'rss', text: '/rss.xml', href: '/rss.xml' },
+  ]}
+/>

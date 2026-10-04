@@ -1,0 +1,42 @@
+---
+export interface BadgeItem {
+  label: string;
+  text: string;
+  href: string;
+  target?: string;
+  rel?: string;
+}
+
+interface Props {
+  items: BadgeItem[];
+  class?: string;
+}
+
+const { items = [], class: className = '' } = Astro.props;
+---
+
+<div class={`flex flex-wrap items-center gap-2.5 my-6 ${className}`}>
+  {items.map((item) => (
+    <a
+      href={item.href}
+      target={
+        item.target ?? (item.href.startsWith('http') ? '_blank' : undefined)
+      }
+      rel={
+        item.rel ??
+        (item.href.startsWith('http') ? 'noopener noreferrer' : undefined)
+      }
+      class="inline-flex items-center px-3 py-1.5 rounded-md border border-border/60 bg-card/40 text-xs font-mono !no-underline group hover:border-accent/60 transition-colors"
+    >
+      <span class="text-muted-foreground group-hover:text-accent transition-colors">
+        [{item.label}:&nbsp;
+      </span>
+      <span class="text-foreground group-hover:text-accent transition-colors">
+        {item.text}
+      </span>
+      <span class="text-muted-foreground group-hover:text-accent transition-colors">
+        ]
+      </span>
+    </a>
+  ))}
+</div>

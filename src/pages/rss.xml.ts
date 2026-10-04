@@ -7,8 +7,14 @@ export const GET: APIRoute = async (context) => {
   const posts = await getCollection('archives', (post) => !post.data.draft);
 
   posts.sort((a, b) => {
-    const timeA = a.data.date instanceof Date ? a.data.date.getTime() : new Date(a.data.date).getTime();
-    const timeB = b.data.date instanceof Date ? b.data.date.getTime() : new Date(b.data.date).getTime();
+    const timeA =
+      a.data.date instanceof Date
+        ? a.data.date.getTime()
+        : new Date(a.data.date).getTime();
+    const timeB =
+      b.data.date instanceof Date
+        ? b.data.date.getTime()
+        : new Date(b.data.date).getTime();
     return timeB - timeA;
   });
 
@@ -18,7 +24,10 @@ export const GET: APIRoute = async (context) => {
     site: context.site?.href ?? info.site.url,
     items: posts.map((post) => ({
       title: post.data.title,
-      pubDate: post.data.date instanceof Date ? post.data.date : new Date(post.data.date),
+      pubDate:
+        post.data.date instanceof Date
+          ? post.data.date
+          : new Date(post.data.date),
       description: post.data.description,
       link: `/archives/${post.id}/`,
       categories: post.data.tags ?? [],

@@ -5,10 +5,19 @@ const currentYear = new Date().getFullYear();
 const name = info.name || info.site.name;
 ---
 
-<footer class="mt-auto border-t border-border/40 py-8 text-center text-xs text-muted-foreground print:hidden" transition:persist="main-footer">
+<footer
+  class="mt-auto border-t border-border/40 py-8 text-center text-xs text-muted-foreground print:hidden"
+  transition:persist="main-footer"
+>
   <div class="container mx-auto px-6">
     <div class="max-w-3xl mx-auto flex items-center justify-center gap-1.5">
-      <span class="inline-block scale-x-[-1] select-none" aria-label="Copyleft" title="Copyleft">©</span>
+      <span
+        class="inline-block scale-x-[-1] select-none"
+        aria-label="Copyleft"
+        title="Copyleft"
+      >
+        ©
+      </span>
       <span>{currentYear}</span>
       <span class="font-medium text-foreground/80">{name}.</span>
       <span>Some rights reserved.</span>

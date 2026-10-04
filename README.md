@@ -47,7 +47,11 @@ This is the one file you'll touch the most. It holds your name and role, the hom
 {
   "name": "John Doe",
   "contacts": [
-    { "label": "email", "text": "john.doe@example.com", "href": "mailto:john.doe@example.com" }
+    {
+      "label": "email",
+      "text": "john.doe@example.com",
+      "href": "mailto:john.doe@example.com"
+    }
   ]
 }
 ```
@@ -63,7 +67,7 @@ description: Short summary shown in listings and search.
 date: 2026-09-20
 tags:
   - security
-draft: true    # remove this (or set false) to publish the post
+draft: true # remove this (or set false) to publish the post
 ---
 ```
 
@@ -71,21 +75,24 @@ The easiest way to start is to copy `0-draft-1.md` or `0-draft-2.md`, fill them 
 
 Some nice extras your markdown supports:
 
-```md
-> [!NOTE] / [!TIP] / [!SUCCESS] / [!IMPORTANT] / [!WARNING] / [!CAUTION]   callout boxes
+`````md
+> [!NOTE] / [!TIP] / [!SUCCESS] / [!IMPORTANT] / [!WARNING] / [!CAUTION] callout boxes
 
-```ts title="app.ts"                                   a code block with a file tab
+````ts title="app.ts"                                   a code block with a file tab
 
 ```bash frame="terminal" group="run" tab="pnpm"          a terminal window, tabs if you group
-```
+````
+`````
+
+````
 
 ## Customizing colors
 
 The whole color scheme lives in `src/styles/global.css`, split into a light block (`:root`) and a dark block. Every color has a short comment next to it saying what it's used for, so you can just tweak the `oklch(...)` values and see the difference.
 
 ```css
---background: oklch(99% .002 286);   /* page background */
---accent:     oklch(54% .22 293);    /* highlight: links, focus */
+--background: oklch(99% 0.002 286); /* page background */
+--accent: oklch(54% 0.22 293); /* highlight: links, focus */
 ```
 
 The site uses JetBrains Mono for everything. That's loaded in `src/layouts/Base.astro`.
@@ -108,3 +115,4 @@ example-portfolio/
 ```
 
 > This project is licensed under the [MIT License ](LICENSE), Be nice. Details in [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
+````
